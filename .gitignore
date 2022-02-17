@@ -27,3 +27,9 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore gems in /vendor/bundle
+/vendor/bundle
+
+# Ignore database.yml
+/config/database.yml
