@@ -53,6 +53,5 @@ module OnlineClassApi
     config.middleware.use ActionDispatch::Flash
     config.active_record.default_timezone = :local
     config.time_zone = "Asia/Tokyo"
-    config.active_job.queue_adapter = :sidekiq
   end
 end
