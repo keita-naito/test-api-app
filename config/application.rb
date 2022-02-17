@@ -54,18 +54,5 @@ module OnlineClassApi
     config.active_record.default_timezone = :local
     config.time_zone = "Asia/Tokyo"
     config.active_job.queue_adapter = :sidekiq
-
-    if Settings.admin_server&.enabled
-      # Enable Flash, Cookies, MethodOverride for Administrate Gem
-      config.session_store :cookie_store
-      config.middleware.use ActionDispatch::Cookies
-      config.middleware.use ActionDispatch::Session::CookieStore, config.session_options
-      config.middleware.use ::Rack::MethodOverride
-
-      # ActionTextに必要なtrixを読み込むためにnode_modulesを読み込ませる
-      config.assets.paths << Rails.root.join("node_modules")
-      # webpackerを後から追加したのでapplication.cssをprecompileの対象にする
-      config.assets.precompile += %w[application.css]
-    end
   end
 end
