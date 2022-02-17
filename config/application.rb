@@ -12,14 +12,14 @@ require "action_mailbox/engine"
 require "action_text/engine"
 require "action_view/railtie"
 require "action_cable/engine"
-require "sprockets/railtie"
+# require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module TestApiApp
+module OnlineClassApi
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
@@ -32,7 +32,40 @@ module TestApiApp
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    # Don't generate system test files.
-    config.generators.system_tests = nil
+    # Only loads a smaller set of middleware suitable for API only apps.
+    # Middleware like session, flash, cookies can be added back manually.
+    # Skip views, helpers and assets when generating a new resource.
+    config.generators do |g|
+      g.template_engine false
+      g.javascripts false
+      g.stylesheets false
+      g.helper false
+      g.test_framework :rspec,
+                       view_specs: false,
+                       routing_specs: false,
+                       helper_specs: false,
+                       controller_specs: false,
+                       request_specs: true
+    end
+    config.api_only = true
+    config.autoload_paths += %W[#{config.root}/lib/autoloads]
+    config.eager_load_paths += %W[#{config.root}/lib/autoloads]
+    config.middleware.use ActionDispatch::Flash
+    config.active_record.default_timezone = :local
+    config.time_zone = "Asia/Tokyo"
+    config.active_job.queue_adapter = :sidekiq
+
+    if Settings.admin_server&.enabled
+      # Enable Flash, Cookies, MethodOverride for Administrate Gem
+      config.session_store :cookie_store
+      config.middleware.use ActionDispatch::Cookies
+      config.middleware.use ActionDispatch::Session::CookieStore, config.session_options
+      config.middleware.use ::Rack::MethodOverride
+
+      # ActionTextに必要なtrixを読み込むためにnode_modulesを読み込ませる
+      config.assets.paths << Rails.root.join("node_modules")
+      # webpackerを後から追加したのでapplication.cssをprecompileの対象にする
+      config.assets.precompile += %w[application.css]
+    end
   end
 end
