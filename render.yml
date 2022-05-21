@@ -1,0 +1,23 @@
+  services:
+  # Staging
+  - type: web
+    name: test-app
+    env: ruby
+    region: singapore
+    plan: free
+    branch: master
+    numInstances: 1
+    healthCheckPath: /
+    buildCommand: ./bin/render-build.sh
+    startCommand: bundle exec puma -C config/puma.rb
+    envVars:
+      - key: RAILS_ENV
+        value: production
+    autoDeploy: false
+
+databases:
+  - name: test-app
+    region: singapore
+    ipAllowList:
+      - source: 0.0.0.0
+        description: everywhere # staging 環境は直接接続できるように
