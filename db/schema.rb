@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2022_02_17_183039) do
 
-  create_table "articles", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "content"
     t.bigint "user_id", null: false
@@ -21,7 +24,7 @@ ActiveRecord::Schema.define(version: 2022_02_17_183039) do
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
     t.string "encrypted_password", default: "", null: false
