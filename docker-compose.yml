@@ -1,17 +1,11 @@
-version: "3.2"
+version: "3.1"
 
 services:
   database:
+    image: postgres
     restart: always
-    image: mysql:latest
     ports:
-      - 3309:3309
-    command: --default-authentication-plugin=mysql_native_password
-    volumes:
-      - mysql-datavolume:/var/lib/mysql
+      - 5432:5432
     environment:
-      MYSQL_ROOT_PASSWORD: root
-
-volumes:
-  mysql-datavolume:
-    driver: local
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
