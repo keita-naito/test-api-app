@@ -21,21 +21,6 @@ services:
           property: connectionString
     autoDeploy: false
 
-  - type: web
-    name: test-app-frontend
-    env: node
-    region: singapore
-    plan: free
-    branch: master
-    numInstances: 1
-    healthCheckPath: /
-    buildCommand: yarn; yarn build
-    startCommand: yarn start
-    envVars:
-      - key: HOST
-        value: 0.0.0.0
-    autoDeploy: false
-
 databases:
   - name: test-app-db
     region: singapore
