@@ -1,7 +1,7 @@
-  services:
+services:
   # Staging
   - type: web
-    name: test-app
+    name: test-app-api
     env: ruby
     region: singapore
     plan: free
@@ -19,6 +19,23 @@
         fromDatabase:
           name: test-app-db
           property: connectionString
+    autoDeploy: false
+
+  - type: web
+    name: test-app-frontend
+    env: node
+    region: singapore
+    plan: free
+    branch: master
+    numInstances: 1
+    healthCheckPath: /
+    buildCommand: yarn build
+    startCommand: yarn start
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: NODE_VERSION
+        value: 15.7.0
     autoDeploy: false
 
 databases:
