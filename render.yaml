@@ -19,6 +19,8 @@ services:
         fromDatabase:
           name: test-app-db
           property: connectionString
+      - key: SECRET_KEY_BASE
+        sync: false
     autoDeploy: false
 
 databases:
