@@ -29,7 +29,7 @@ services:
     branch: master
     numInstances: 1
     healthCheckPath: /
-    buildCommand: yarn build
+    buildCommand: yarn; yarn build
     startCommand: yarn start
     envVars:
       - key: HOST
