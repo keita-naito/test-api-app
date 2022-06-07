@@ -26,7 +26,7 @@ services:
     name: test-app-db
     env: docker
     region: singapore
-    plan: static
+    plan: starter
     branch: master
     envVars:
     - key: MYSQL_DATABASE
