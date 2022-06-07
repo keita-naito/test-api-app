@@ -22,9 +22,22 @@ services:
       - fromGroup: app-demo-secrets
     autoDeploy: false
 
-databases:
-  - name: test-app-db
+  - type: pserv
+    name: test-app-db
+    env: docker
     region: singapore
-    ipAllowList:
-      - source: 0.0.0.0
-        description: everywhere # staging 環境は直接接続できるように
+    plan: static
+    branch: master
+    envVars:
+    - key: MYSQL_DATABASE
+      sync: false
+    - key: MYSQL_USER
+      sync: false
+    - key: MYSQL_PASSWORD
+      generateValue: true
+    - key: MYSQL_ROOT_PASSWORD
+      generateValue: true
+    disk:
+      name: mysql
+      mountPath: /var/lib/mysql
+      sizeGB: 10
