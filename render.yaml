@@ -28,6 +28,10 @@ services:
     region: singapore
     plan: starter
     branch: master
+    disk:
+      name: mysql
+      mountPath: /var/lib/mysql
+      sizeGB: 10
     envVars:
     - key: MYSQL_DATABASE
       sync: false
@@ -37,7 +41,19 @@ services:
       generateValue: true
     - key: MYSQL_ROOT_PASSWORD
       generateValue: true
-    disk:
-      name: mysql
-      mountPath: /var/lib/mysql
-      sizeGB: 10
+    - fromGroup: app-demo-secrets
+    autoDeploy: false
+
+envVarGroups:
+  - name:  app-demo-secrets
+    envVars:
+    - key: SECRET_KEY_BASE
+      sync: false
+    - key: MYSQL_DATABASE
+      sync: false
+    - key: MYSQL_USER
+      sync: false
+    - key: MYSQL_PASSWORD
+      generateValue: true
+    - key: MYSQL_ROOT_PASSWORD
+      generateValue: true
