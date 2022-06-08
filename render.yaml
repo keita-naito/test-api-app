@@ -42,6 +42,7 @@ services:
     - key: MYSQL_ROOT_PASSWORD
       generateValue: true
     - fromGroup: app-demo-secrets
+    autoDeploy: false
 
 envVarGroups:
   - name:  app-demo-secrets
