@@ -25,7 +25,7 @@ services:
       mountPath: /var/lib/mysql
       sizeGB: 10
     envVars:
-    - fromGroup: app-demo-secrets
+      - fromGroup: app-demo-secrets
     autoDeploy: false
 
 envVarGroups:
