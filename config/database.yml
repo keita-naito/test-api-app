@@ -68,6 +68,7 @@ test:
 #
 production:
   <<: *default
-  database: test_api_app_production
-  username: test_api_app
-  password: <%= ENV['TEST_API_APP_DATABASE_PASSWORD'] %>
+  database: <%= ENV.fetch("MYSQL_DATABASE") %>
+  username: <%= ENV.fetch("MYSQL_USER") %>
+  password: <%= ENV.fetch("MYSQL_ROOT_PASSWORD") %>
+  host: <%= ENV['MYSQL_HOST'] %>
