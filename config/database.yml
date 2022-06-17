@@ -72,3 +72,4 @@ production:
   username: <%= ENV.fetch("MYSQL_USER") %>
   password: <%= ENV.fetch("MYSQL_ROOT_PASSWORD") %>
   host: <%= ENV['MYSQL_HOST'] %>
+  url: <%= ENV['MYSQL_URL'] %>
