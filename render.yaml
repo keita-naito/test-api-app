@@ -14,6 +14,17 @@ services:
       - fromGroup: app-demo-secrets
     autoDeploy: false
 
+  - type: cron
+    name: test-cron
+    env: docker
+    region: singapore
+    plan: starter
+    branch: master
+    schedule: "0 1 * * *"
+    envVars:
+      - fromGroup: app-demo-secrets
+    autoDeploy: false
+
   - type: pserv
     name: test-app-db
     env: docker
