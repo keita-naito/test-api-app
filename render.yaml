@@ -4,7 +4,7 @@ services:
     name: test-app-api
     env: ruby
     region: singapore
-    plan: free
+    plan: starter
     branch: master
     numInstances: 1
     healthCheckPath: /
